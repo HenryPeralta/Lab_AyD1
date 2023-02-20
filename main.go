@@ -33,7 +33,10 @@ func main() {
 	request()
 }
 
-
+func getOperacion(w http.ResponseWriter, req *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(valores)
+}
 
 func createOperacion(w http.ResponseWriter, req *http.Request) {
 	reqBody, err := ioutil.ReadAll(req.Body)
@@ -99,7 +102,7 @@ func middlewareCors(next http.Handler) http.Handler {
 func request() {
 	router := mux.NewRouter().StrictSlash(false)
 	enableCORS(router)
-	
+	router.HandleFunc("/operacion", getOperacion).Methods("GET")
 	router.HandleFunc("/operacion", createOperacion).Methods("POST")
 
 	log.Println("Escuchando en http://localhost:8000")
