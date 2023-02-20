@@ -105,9 +105,7 @@ func request() {
 	router.HandleFunc("/operacion", getOperacion).Methods("GET")
 	router.HandleFunc("/operacion", createOperacion).Methods("POST")
 
+	log.Println("Ya puede multiplicar")
 	log.Println("Escuchando en http://localhost:8000")
 	log.Fatal(http.ListenAndServe(":8000", router))
 }
-
-
-
